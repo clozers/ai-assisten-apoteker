@@ -213,7 +213,14 @@ class RAGController extends Controller
             }
 
             usort($scored, fn($a, $b) => $b['score'] <=> $a['score']);
-            $topK = array_slice($scored, 0, 3);
+            Log::info("Similarity Results:", array_map(function ($s) {
+                return [
+                    'title' => $s['doc']->title,
+                    'score' => $s['score']
+                ];
+            }, array_slice($scored, 0, 10)));
+            $topK = array_slice($scored, 0, 10);
+
 
             $confidence = !empty($topK) ? round($topK[0]['score'] * 100) : 0;
 
