@@ -21,7 +21,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/rag/upload', [RAGController::class, 'upload'])
         ->name('rag.upload');
 
+
     // MANAGEMENT DATASET (pakai tabel documents)
+    Route::get('/documents/template/download', [DocumentController::class, 'downloadTemplate'])
+        ->name('documents.template.download');
     Route::get('/documents', [DocumentController::class, 'index'])->name('documents.index');
     Route::get('/documents/{document}/edit', [DocumentController::class, 'edit'])->name('documents.edit');
     Route::put('/documents/{document}', [DocumentController::class, 'update'])->name('documents.update');

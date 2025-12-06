@@ -45,4 +45,17 @@ class DocumentController extends Controller
             ->route('documents.index')
             ->with('status', 'Dokumen berhasil dihapus.');
     }
+
+    public function downloadTemplate()
+    {
+        $filePath = public_path('template_documents.csv'); // atau template_documents_clean.csv
+
+        if (! file_exists($filePath)) {
+            abort(404, 'Template tidak ditemukan.');
+        }
+
+        return response()->download($filePath, 'template_documents.csv', [
+            'Content-Type' => 'text/csv',
+        ]);
+    }
 }
