@@ -105,7 +105,6 @@
             </p>
         </div>
     </div>
-    {{-- NAVBAR (Light Glassmorphism) --}}
     <nav class="backdrop-blur-xl bg-white/70 shadow-lg sticky top-0 z-50 border-b border-gray-200">
         <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
 
@@ -114,43 +113,48 @@
                 💊 <span>Apotek AI Assistant</span>
             </a>
 
-            {{-- MENU --}}
-            <div class="flex items-center space-x-3">
+            {{-- HAMBURGER BUTTON (Mobile) --}}
+            <button id="nav-toggle" class="md:hidden text-gray-800 text-2xl focus:outline-none">
+                ☰
+            </button>
 
-                {{-- UPLOAD DATA (hanya muncul jika sudah login) --}}
+            {{-- MENU --}}
+            <div id="nav-menu"
+                class="hidden md:flex flex-col md:flex-row items-start md:items-center gap-3 md:gap-4 mt-3 md:mt-0">
+
+                {{-- UPLOAD DATA --}}
                 @auth
                     <a href="{{ route('rag.upload.page') }}"
-                        class="px-4 py-2 rounded-lg text-sm font-medium bg-green-500/50 text-gray-700 hover:bg-white transition shadow-sm border border-gray-100">
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-green-500/50 text-gray-700 hover:bg-white transition shadow-sm border border-gray-100 w-full md:w-auto">
                         Upload Data
                     </a>
 
-
                     <a href="{{ route('documents.index') }}"
-                        class="px-4 py-2 rounded-lg text-sm font-medium bg-yellow-500/50 text-gray-700 hover:bg-white transition shadow-sm border border-gray-100">
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-yellow-500/50 text-gray-700 hover:bg-white transition shadow-sm border border-gray-100 w-full md:w-auto">
                         Dataset
                     </a>
                 @endauth
 
-                {{-- CHAT AI (selalu muncul) --}}
+                {{-- CHAT AI --}}
                 <a href="{{ route('rag.chat.page') }}"
-                    class="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600/90 text-white hover:bg-blue-700 transition shadow-lg">
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600/90 text-white hover:bg-blue-700 transition shadow-lg w-full md:w-auto">
                     Chat AI
                 </a>
 
-                {{-- LOGIN (hanya jika belum login) --}}
+                {{-- LOGIN --}}
                 @guest
                     <a href="/login"
-                        class="px-4 py-2 rounded-lg text-sm font-medium bg-green-600/90 text-white hover:bg-green-700 transition shadow-lg">
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-green-600/90 text-white hover:bg-green-700 transition shadow-lg w-full md:w-auto">
                         Login
                     </a>
                 @endguest
 
-                {{-- LOGOUT (hanya jika sudah login) --}}
+                {{-- LOGOUT --}}
                 @auth
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST" class="w-full md:w-auto">
                         @csrf
                         <button type="submit"
-                            class="px-4 py-2 rounded-lg text-sm font-medium bg-red-600/90 text-white hover:bg-red-700 transition shadow-lg">
+                            class="px-4 py-2 rounded-lg text-sm font-medium bg-red-600/90 text-white hover:bg-red-700 transition shadow-lg w-full md:w-auto">
                             Logout
                         </button>
                     </form>
@@ -158,15 +162,24 @@
 
             </div>
 
-
         </div>
     </nav>
+
 
 
     {{-- CONTENT --}}
     <div class="max-w-4xl mx-auto p-4">
         @yield('content')
     </div>
+
+    <script>
+        const toggleBtn = document.getElementById("nav-toggle");
+        const menu = document.getElementById("nav-menu");
+
+        toggleBtn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        }); <
+    </script>
 
     <script>
         // Splash screen hilang setelah 1.5 detik
