@@ -74,12 +74,16 @@
                                     </td>
 
                                     {{-- Aksi --}}
-                                    <td class="px-5 py-4 text-right">
+                                    <td class="px-5 py-4 text-right flex justify-end gap-2">
+                                        {{-- TOMBOL EDIT --}}
+                                        <a href="{{ route('documents.edit', $doc) }}"
+                                            class="px-4 py-2 text-xs font-semibold bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 shadow-md">
+                                            Edit
+                                        </a>
                                         <form action="{{ route('documents.destroy', $doc) }}" method="POST"
                                             onsubmit="return confirm('Hapus dokumen ini?')">
                                             @csrf
                                             @method('DELETE')
-
                                             <button type="submit"
                                                 class="px-4 py-2 text-xs font-semibold bg-red-500 text-white rounded-lg hover:bg-red-600 shadow-md">
                                                 Hapus
