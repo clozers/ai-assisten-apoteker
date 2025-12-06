@@ -41,18 +41,47 @@
             {{-- MENU --}}
             <div class="flex items-center space-x-3">
 
-                {{-- UPLOAD DATA --}}
-                <a href="{{ route('rag.upload.page') }}"
-                    class="px-4 py-2 rounded-lg text-sm font-medium bg-white/50 text-gray-700 hover:bg-white transition shadow-sm border border-gray-100">
-                    Upload Data
-                </a>
+                {{-- UPLOAD DATA (hanya muncul jika sudah login) --}}
+                @auth
+                    <a href="{{ route('rag.upload.page') }}"
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-green-500/50 text-gray-700 hover:bg-white transition shadow-sm border border-gray-100">
+                        Upload Data
+                    </a>
 
-                {{-- CHAT AI (Tombol Primer) --}}
+
+                    <a href="{{ route('documents.index') }}"
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-yellow-500/50 text-gray-700 hover:bg-white transition shadow-sm border border-gray-100">
+                        Dataset
+                    </a>
+                @endauth
+
+                {{-- CHAT AI (selalu muncul) --}}
                 <a href="{{ route('rag.chat.page') }}"
                     class="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600/90 text-white hover:bg-blue-700 transition shadow-lg">
                     Chat AI
                 </a>
+
+                {{-- LOGIN (hanya jika belum login) --}}
+                @guest
+                    <a href="/login"
+                        class="px-4 py-2 rounded-lg text-sm font-medium bg-green-600/90 text-white hover:bg-green-700 transition shadow-lg">
+                        Login
+                    </a>
+                @endguest
+
+                {{-- LOGOUT (hanya jika sudah login) --}}
+                @auth
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit"
+                            class="px-4 py-2 rounded-lg text-sm font-medium bg-red-600/90 text-white hover:bg-red-700 transition shadow-lg">
+                            Logout
+                        </button>
+                    </form>
+                @endauth
+
             </div>
+
 
         </div>
     </nav>
