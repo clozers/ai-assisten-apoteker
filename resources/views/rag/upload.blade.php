@@ -20,6 +20,14 @@
             </div>
         @endif
 
+        {{-- DOWNLOAD TEMPLATE --}}
+        <div class="mb-4">
+            <a href="{{ asset('template_documents.csv') }}"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 shadow transition">
+                ⬇️ Download Template CSV
+            </a>
+        </div>
+
         <form method="POST" action="{{ route('rag.upload') }}" enctype="multipart/form-data"
             class="space-y-4 bg-white p-6 rounded-xl shadow-md border">
             @csrf
