@@ -23,12 +23,88 @@
             background-size: 50% 50%;
         }
     </style>
+    <style>
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scale-up {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce-slow {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.8s ease-out forwards;
+        }
+
+        .animate-scale-up {
+            animation: scale-up 0.8s ease-out 0.2s forwards;
+        }
+
+        .animate-fade-delayed {
+            animation: fade-in 1s ease-out 0.4s forwards;
+        }
+
+        .animate-bounce-slow {
+            animation: bounce-slow 2s infinite;
+        }
+    </style>
+
 </head>
 
 {{-- Ubah warna teks body default menjadi gelap --}}
 
 <body class="text-gray-900 min-h-screen">
 
+    {{-- SPLASH SCREEN FULLSCREEN --}}
+    <div id="splash"
+        class="fixed inset-0 z-[9999] flex items-center justify-center
+           bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500
+           text-white transition-opacity duration-700">
+
+        <div class="flex flex-col items-center space-y-4 animate-fade-in">
+
+            {{-- Logo --}}
+            <div class="text-6xl animate-bounce-slow">💊</div>
+
+            {{-- Title --}}
+            <h1 class="text-3xl font-bold tracking-wide animate-scale-up">
+                Apotek AI Assistant
+            </h1>
+
+            {{-- Subtitle --}}
+            <p class="text-white/80 text-sm animate-fade-delayed">
+                Loading your intelligent assistant...
+            </p>
+        </div>
+    </div>
     {{-- NAVBAR (Light Glassmorphism) --}}
     <nav class="backdrop-blur-xl bg-white/70 shadow-lg sticky top-0 z-50 border-b border-gray-200">
         <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
@@ -92,6 +168,16 @@
         @yield('content')
     </div>
 
+    <script>
+        // Splash screen hilang setelah 1.5 detik
+        setTimeout(() => {
+            const splash = document.getElementById('splash');
+            splash.classList.add('opacity-0');
+
+            // Hapus dari DOM setelah animasi selesai
+            setTimeout(() => splash.style.display = 'none', 700);
+        }, 1500);
+    </script>
 </body>
 
 </html>
