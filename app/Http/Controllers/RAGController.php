@@ -218,8 +218,8 @@ class RAGController extends Controller
                     'title' => $s['doc']->title,
                     'score' => $s['score']
                 ];
-            }, array_slice($scored, 0, 10)));
-            $topK = array_slice($scored, 0, 10);
+            }, array_slice($scored, 0, 5)));
+            $topK = array_slice($scored, 0, 5);
 
 
             $confidence = !empty($topK) ? round($topK[0]['score'] * 100) : 0;
